@@ -12,29 +12,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projeto.clebeson.entity.CursoEntity;
-import com.projeto.clebeson.service.CursoService;
+import com.projeto.clebeson.entity.AlunoEntity;
+import com.projeto.clebeson.service.AlunoService;
 
 @RestController
-@RequestMapping(value = "/cursos")
-public class CursoResource {
+@RequestMapping(value = "/alunos")
+public class AlunoResource {
 	
 	@Autowired
-	CursoService service;
+	AlunoService service;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public List<CursoEntity> listar() {
-		List<CursoEntity> lista = service.buscar();
-	return lista; //listaCurso;
+	public List<AlunoEntity> listar() {
+		List<AlunoEntity> lista = service.buscar();
+	return lista; //listaAluno;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/{id}")
-	public ResponseEntity<CursoEntity> buscar(@PathVariable Integer id){
-		CursoEntity curso = service.buscar(id);
-		if(curso == null) {
+	public ResponseEntity<AlunoEntity> buscar(@PathVariable Integer id){
+		AlunoEntity objeto = service.buscar(id);
+		if(objeto == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
-		return ResponseEntity.ok(curso);
+		return ResponseEntity.ok(objeto);
 	}
 	
 }

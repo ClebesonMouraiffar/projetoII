@@ -1,14 +1,37 @@
 package com.projeto.clebeson.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class CursoEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	public List<TurmaEntity> getTurmas() {
+		return turmas;
+	}
+
+	public void setTurmas(List<TurmaEntity> turmas) {
+		this.turmas = turmas;
+	}
+
 	private String nome;
 	private String nivel;
 	private String turno;
+	
+	@OneToMany(mappedBy="curso")//curso é a propriedade da classe relacionada
+	private List<TurmaEntity> turmas = new ArrayList<>();
+	//coleções precisam ser inicializadas
 	
 	public CursoEntity(Integer id, String nome, String nivel, String turno) {
 		super();
