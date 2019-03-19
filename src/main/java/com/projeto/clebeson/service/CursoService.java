@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.projeto.clebeson.dao.CursoDAO;
 import com.projeto.clebeson.entity.CursoEntity;
+import com.projeto.clebeson.exceptions.ObjNaoEncontradoException;
 
 @Service
 public class CursoService {
@@ -22,7 +23,8 @@ public class CursoService {
 	
 	public CursoEntity buscar(Integer id) {
 		Optional<CursoEntity> curso = dao.findById(id);
-		return curso.orElse(null);
+		//return curso.orElse(null);
+		return curso.orElseThrow(()-> new ObjNaoEncontradoException("Curso Não Encontrado"));
 	}
 	
 	

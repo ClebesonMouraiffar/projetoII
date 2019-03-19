@@ -2,8 +2,8 @@ package com.projeto.clebeson.resource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.projeto.clebeson.DTO.CursoDTO;
 import com.projeto.clebeson.entity.CursoEntity;
 import com.projeto.clebeson.service.CursoService;
 
@@ -23,17 +24,15 @@ public class CursoResource {
 	CursoService service;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public List<CursoEntity> listar() {
-		List<CursoEntity> lista = service.buscar();
-	return lista; //listaCurso;
+	public List<CursoDTO> listar() { 
+		List<CursoEntity> listaEntity = service.buscar();
+		List<CursoDTO> listaDTO = listaEntity.stream().map(obj -> new CursoDTO(obj)).collect(Collectors.toList());
+	return listaDTO; //listaCurso;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/{id}")
 	public ResponseEntity<CursoEntity> buscar(@PathVariable Integer id){
 		CursoEntity curso = service.buscar(id);
-		if(curso == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		}
 		return ResponseEntity.ok(curso);
 	}
 	
