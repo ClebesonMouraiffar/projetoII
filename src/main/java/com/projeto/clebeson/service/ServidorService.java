@@ -7,27 +7,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.projeto.clebeson.dao.CursoDAO;
-import com.projeto.clebeson.entity.CursoEntity;
+import com.projeto.clebeson.dao.ServidorDAO;
+import com.projeto.clebeson.entity.ServidorEntity;
 import com.projeto.clebeson.exceptions.ObjNaoEncontradoException;
 
 @Service
-public class CursoService {
+public class ServidorService {
 	
 	@Autowired
-	private CursoDAO dao;
+	private ServidorDAO dao;
 	
-	public  List<CursoEntity> buscar(){
+	public  List<ServidorEntity> buscar(){
 		return dao.findAll();
 	}
 	
-	public CursoEntity buscar(Integer id) {
-		Optional<CursoEntity> curso = dao.findById(id);
+	public ServidorEntity buscar(Integer id) {
+		Optional<ServidorEntity> curso = dao.findById(id);
 		//return curso.orElse(null);
 		return curso.orElseThrow(()-> new ObjNaoEncontradoException("Curso Não Encontrado"));
 	}
 	
-	public CursoEntity salvar(CursoEntity obj) {
+	public ServidorEntity salvar(ServidorEntity obj) {
 		
 		obj.setId(null);
 		return dao.save(obj);
