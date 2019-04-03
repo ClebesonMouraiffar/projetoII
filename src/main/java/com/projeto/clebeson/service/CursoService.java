@@ -52,10 +52,10 @@ public class CursoService {
 		return dao.save(obj);
 	}
 	
-	public Page<CursoEntity>BuscarPorPagina( Integer pagina, Integer qtdLinhas, String orderBy, String dir){
+	public Page<CursoEntity>BuscarPorPagina(String nome, Integer pagina, Integer qtdLinhas, String orderBy, String dir){
 		PageRequest pageRequest=PageRequest.of(pagina, qtdLinhas, Direction.valueOf(dir),orderBy);
 		
-		return dao.findAll(pageRequest);
+		return dao.search(nome, pageRequest);
 	}
 	
 	
